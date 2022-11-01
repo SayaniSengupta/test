@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: cimg/python:3.8
+    steps:
+      - run: |
+          curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install-latest.sh | bash
+      - checkout
+      - run: python manage.py runserver
+      - run:
+          command: FOSSA_API_KEY=8ffb6c4847b8a873e0fbccc8a16d3527 fossa analyze
+          working_directory: https://github.com/SayaniSengupta/test.git
+  test:
+    docker:
+      - image: cimg/python:3.8
+    steps:
+      - checkout
+      - run: python manage.py runserver
+      - run:
+          command: fossa test
+          working_directory: https://github.com/SayaniSengupta/test.git
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
