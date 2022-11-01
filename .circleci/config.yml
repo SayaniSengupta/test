@@ -7,7 +7,7 @@ jobs:
       - run: |
           curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install-latest.sh | bash
       - checkout
-      - run: python manage.py runserver
+      - run: python SayaniSengupta/test/app/manage.py runserver
       - run:
           command: FOSSA_API_KEY=8ffb6c4847b8a873e0fbccc8a16d3527 fossa analyze
           working_directory: https://github.com/SayaniSengupta/test.git
